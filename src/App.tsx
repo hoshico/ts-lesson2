@@ -104,7 +104,26 @@ const PC3: PC = {
 }
 
 // 型の互換性
+//①具体的な文字列リテラル
+const comp1 = "test";
 
+//②抽象的なstringに対して具体的な文字列を入れるのはOK
+let comp2: string = comp1;
+
+//③逆により具体度の高い型に代入するのはNG
+let comp3: string = "test";
+// アノーテーションで"test"(文字列リテラル)を指定
+// ⇩ これはだめ
+//let comp4: "test" = comp3;
+
+// 引数の数は一緒だが型が違う場合
+let funcComp1 = (x: number) => {}
+let funcComp2 = (x: string) => {}
+
+// ⇩ 型が違うので代入することはできない
+// ※ 代入する時はletはいらない(基本的なこと)
+//funcComp1 = funcComp2
+//funcComp2 = funcComp1
 
 function App() {
   return (
