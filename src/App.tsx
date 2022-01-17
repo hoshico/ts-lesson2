@@ -125,6 +125,67 @@ let funcComp2 = (x: string) => {}
 //funcComp1 = funcComp2
 //funcComp2 = funcComp1
 
+// ジェネリクス  <T>はエイリアス。この段階では型は定まっていない
+// 型の中でここで定義したエイリアスを使用する(テンプレートだけ用意しておいて、具体的な型は後で決める)
+interface GEN<T>{
+  item: T;
+}
+// ここで初めて型を指定する
+const gen0: GEN<string> = { item: "hello" };
+
+// <>をつけなかったらエラーになる
+const gen1: GEN = { item: "hello" };
+
+// numberを指定してみる
+const gen2: GEN<number> = { item: 12 };
+
+// エイリアスにデフォルトの型を使用することも可能(初期値のようなもの)
+interface GEN1<T = string>{
+  item: T;
+}
+// デフォルトが設定されているので型を指定しなかった場合stingになる
+const gen3: GEN1 = { item: "hello" };
+
+// 特定の型のみ使用した場合
+interface GEN2<T extends string | number >{
+  item: T;
+}
+// stringを指定することは可能
+const gen4: GEN2<string> = { item: "hello" };
+
+// numberを指定することは可能
+const gen5: GEN2<number> = { item: 1 };
+
+// 関数の場合
+function funcGen<T>(props: T){
+  return {item: props}
+}
+const gem6 = funcGen<string>("test");
+const gen7 = funcGen<string | null>(null);
+
+// 関数のextends
+function funcGen1<T extends string | null>(props: T){
+  return {value: props}
+}
+const gen8 = funcGen1("hello");
+
+// propsの使い方
+interface Props {
+  price: number;
+}
+// Propsというデータ型のみ受けつけるようにする
+function funcGen3<T extends Props>(props: T) {
+  return {value: props.price}
+}
+// propsで定義したデータ型でしか受け取れない
+const gen10 = funcGen3({price: 10})
+
+// アロー関数で表記
+const funcGen4 = <T extends Props>(props: T) => {
+  return { value: props.price };
+}
+
+
 function App() {
   return (
     <div className="App">
