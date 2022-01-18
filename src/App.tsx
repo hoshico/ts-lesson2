@@ -1,4 +1,7 @@
 import './App.css';
+import Data from "./data.json"
+
+type USERS = typeof Data;
 
 const name = "hello";
 let username: string = "hello";
