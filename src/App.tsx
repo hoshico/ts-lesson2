@@ -1,5 +1,6 @@
 import './App.css';
 import Data from "./data.json"
+import TestComponent from './TestComponent';
 
 type USERS = typeof Data;
 
@@ -189,9 +190,12 @@ const funcGen4 = <T extends Props>(props: T) => {
 }
 
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
+      <header className="App-header">
+        <TestComponent text="hello from App" />
+      </header>
       
     </div>
   );
